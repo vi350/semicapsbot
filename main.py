@@ -32,26 +32,6 @@ def handle_text(message):
     logq(message, answer)
 
 
-@bot.message_handler(content_types=['text'])
-def handle_text(message):
-    answer = 'placeholder'
-    '''
-    wascapsed = False
-    for letter in list(message.text):
-        if letter.isalpha():
-            if not wascapsed:
-                answer += letter.upper()
-                wascapsed = True
-            else:
-                answer += letter.lower()
-                wascapsed = False
-        else:
-            answer += letter
-    '''
-    bot.send_message(message.chat.id, answer)
-    logq(message, answer)
-
-
 @bot.inline_handler(lambda query: len(query.query) != 0)
 def query_text(inline_query):
     answer = ''
@@ -78,7 +58,7 @@ def query_text(inline_query):
 
 if __name__ == "__main__":
     logging.basicConfig(format='%(asctime)s  %(message)s',
-                        level=logging.INFO, filename='logs/info ' + str(datetime.now())[:-7] + '.txt')
+                        level=logging.INFO, filename='logs/info_' + str(datetime.now())[:-7].replace(' ', '_') + '.txt')
     logging.info("Get me:\n" + str(bot.get_me()) + "\n=========")
     print("Get me:\n", bot.get_me(), "\n==========")
     bot.polling(none_stop=True)
